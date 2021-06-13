@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'TambahActivity.dart';
+import 'tambah_activity.dart';
 
-class Home extends StatelessWidget{
+class Aktivitas extends StatelessWidget{
   @override
 
   @override
   Widget build(BuildContext context){
     
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-    home : Container(decoration: new BoxDecoration(
-      image: new DecorationImage(
-        image: new AssetImage('images/gambar1.jpg'),
+    debugShowCheckedModeBanner: false,
+    home : Container(decoration:  BoxDecoration(
+      image: DecorationImage(
+        image:  AssetImage('images/gambar1.jpg'),
         fit: BoxFit.cover)
     ),
     child: 
@@ -28,7 +28,7 @@ class Home extends StatelessWidget{
 
                 Container(
                 padding: EdgeInsets.only(top: 465),
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text('Tambah Aktivitas',style: TextStyle(fontSize: 20),),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> TambahActivity()));

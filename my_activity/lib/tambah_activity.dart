@@ -3,14 +3,42 @@ import 'package:flutter/material.dart';
 
 
 class TambahActivity extends StatefulWidget {
-  final state = ActivityState;
+  
   @override
   ActivityState createState() => ActivityState();
 }
 
 class ActivityState extends State<TambahActivity>{
- var aktivitas = ['Olahraga', 'Mukbang' , 'Traveling',' Melukis', 'Memasak','Belajar' , 'Mengaji'];
- int index=1;
+  
+ TextEditingController activityController = TextEditingController();
+ TextEditingController hariController = TextEditingController();
+ TextEditingController waktuController = TextEditingController(); 
+ TextEditingController catatanController = TextEditingController(); 
+
+ void hasil_inputan() {
+    AlertDialog alertDialog = AlertDialog(
+      title: Text('Your Activity'),
+      content: Container(
+        padding: EdgeInsets.all(5.0),
+        alignment: Alignment.center,
+        color: Colors.grey,
+        height: 200,
+        child: Column(
+          children: [
+            Text("Aktivitas : ${activityController.text}"),
+            Text("Hari : ${hariController.text}"),
+            Text("Waktu : ${hariController.text}"),
+            Text("Catatan : ${catatanController.text}"),
+
+            OutlinedButton(onPressed: (){
+                Navigator.pop(context);
+              }, child: Text('OK', style: TextStyle(color: Colors.white),))
+          ],
+        ),
+      ),
+    );
+    showDialog(builder: (context) => alertDialog, context: context);
+  }
 
 @override
 Widget build(BuildContext context) {
@@ -30,6 +58,7 @@ Widget build(BuildContext context) {
                   child:Padding(
                     padding: EdgeInsets.only(bottom:5),
                     child: TextField(
+                      controller: activityController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Aktivitas',
@@ -45,6 +74,7 @@ Widget build(BuildContext context) {
                   Padding(
                     padding: EdgeInsets.only(top: 15, bottom:5),
                     child: TextField(
+                      controller: hariController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Hari',
@@ -59,6 +89,7 @@ Widget build(BuildContext context) {
                   Padding(
                     padding: EdgeInsets.only(top: 15, bottom:5),
                     child: TextField(
+                      controller: waktuController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Waktu',
@@ -73,6 +104,7 @@ Widget build(BuildContext context) {
                   Padding(
                     padding: EdgeInsets.only(top: 15, bottom:5),
                     child: TextField(
+                      controller: catatanController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Catatan',
@@ -86,34 +118,15 @@ Widget build(BuildContext context) {
 
                   Padding(
                     padding: EdgeInsets.only(top: 15, bottom:5),
-                    child: Listener(
-                       onPointerDown: (PointerDownEvent event){
-                          AlertDialog info = AlertDialog(
-                              title : Text("info"),
-                              content: Text('Aktivitas' +' ' + aktivitas[index % aktivitas.length] + ' ' + 'Sukses di Simpan'),
-                              actions:[
-                                FlatButton(
-                                  child: Text("OK"),
-                                  onPressed: ()=> Navigator.of(context).pop()
-                                  ),
-                                  ],
-                                  );
-                                showDialog(context: context, builder: (BuildContext context){
-                                  return info;
-                                }
-                              );
-                            },
-              
-              child:  RaisedButton(
-                color: Theme.of(context).primaryColorDark, 
-                textColor: Theme.of(context).primaryColorLight,
-                child:
-              new Text('Save',
-              textScaleFactor: 1.5, style: TextStyle(color: Colors.white)
-                  ),
+                    child:  ElevatedButton(
+                      child:
+                    Text('Save',textScaleFactor: 1.5, style: TextStyle(color: Colors.white)),
+                        onPressed: () { 
+                          hasil_inputan();
+                        }
                 ),
               ),
-            ),
+            
                         
           ]
          ),
@@ -121,3 +134,4 @@ Widget build(BuildContext context) {
        );
        }
       }
+  
