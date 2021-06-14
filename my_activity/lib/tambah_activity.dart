@@ -3,17 +3,24 @@ import 'package:flutter/material.dart';
 
 
 class TambahActivity extends StatefulWidget {
-  
+ 
   @override
   ActivityState createState() => ActivityState();
 }
 
 class ActivityState extends State<TambahActivity>{
-  
+
  TextEditingController activityController = TextEditingController();
  TextEditingController hariController = TextEditingController();
- TextEditingController waktuController = TextEditingController(); 
  TextEditingController catatanController = TextEditingController(); 
+ 
+ String _waktu = "";
+
+ void waktu(String value) {
+    setState(() {
+      _waktu = value;
+    });
+  }
 
  void hasil_inputan() {
     AlertDialog alertDialog = AlertDialog(
@@ -27,7 +34,7 @@ class ActivityState extends State<TambahActivity>{
           children: [
             Text("Aktivitas : ${activityController.text}"),
             Text("Hari : ${hariController.text}"),
-            Text("Waktu : ${hariController.text}"),
+            Text("Waktu : $_waktu"),
             Text("Catatan : ${catatanController.text}"),
 
             OutlinedButton(onPressed: (){
@@ -53,7 +60,7 @@ Widget build(BuildContext context) {
             
             child: ListView(
               children: [
-                Image.asset('images/gambar2.jpg', height: 200,),
+                Image.asset('images/gambar2.jpg', height: 150,),
                 Container(
                   child:Padding(
                     padding: EdgeInsets.only(bottom:5),
@@ -86,23 +93,44 @@ Widget build(BuildContext context) {
                     ),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(top: 15, bottom:5),
-                    child: TextField(
-                      controller: waktuController,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText: 'Waktu',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)
-                        ),
-                        ),
-                        onChanged: (value){},
-                    ),
-                  ),
+                  
+                          Padding(
+                            padding: const EdgeInsets.only(top:0.1),
+                            child: RadioListTile(
+                            value: "Pagi", title: Text("Pagi"),
+                            groupValue: _waktu,
+                            onChanged: (String value){
+                              waktu(value);
+                            },
+                          ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 0.1),
+                            child: RadioListTile(
+                            value: "Siang", title: Text("Siang"),
+                            groupValue: _waktu,
+                            onChanged: (String value){
+                              waktu(value);
+                            },
+                          ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 0.005),
+                            child: RadioListTile(
+                            value: "Malam", title: Text("Malam"),
+                            groupValue: _waktu,
+                            onChanged: (String value){
+                              waktu(value);
+                            },
+                          ),
+                          ),
+                  
+
 
                   Padding(
-                    padding: EdgeInsets.only(top: 15, bottom:5),
+                    padding: EdgeInsets.only(top: 3, bottom:5),
                     child: TextField(
                       controller: catatanController,
                       keyboardType: TextInputType.text,
@@ -117,7 +145,7 @@ Widget build(BuildContext context) {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.only(top: 15, bottom:5),
+                    padding: EdgeInsets.only(top: 3, bottom:5),
                     child:  ElevatedButton(
                       child:
                     Text('Save',textScaleFactor: 1.5, style: TextStyle(color: Colors.white)),
